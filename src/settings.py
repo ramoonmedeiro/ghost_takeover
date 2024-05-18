@@ -8,7 +8,7 @@ class Settings(Enum):
     APP_VERSION = "0.1.0"
 
     BANNER = f"""
-{Fore.BLACK}
+{Fore.WHITE}
 
               ('-. .-.                .-')     .-') _    
              ( OO )  /               ( OO ).  (  OO) )   
