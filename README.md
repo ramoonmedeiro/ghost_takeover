@@ -1,5 +1,7 @@
 # Ghost Takeover
 
-A tool that test subdomain takeover vulnerabilities in subdomains.
+<div align="center">
+  <img src="/assets/img/banner.png" width="320px" />
+</div>
 
 ## Installation
