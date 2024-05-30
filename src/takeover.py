@@ -5,6 +5,7 @@ import requests
 import json
 from colorama import Fore
 import urllib3
+import os
 
 # Suprimir avisos de verificação SSL
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -13,8 +14,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class Takeover:
     def __init__(self):
         self.user_agent = random.choice(Settings.USER_AGENT.value)
-        self.path = "../fingerprints/fingerprints.json"
-        self.fingerprints = json.load(open(self.path))
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.path = os.path.join(base_dir, "fingerprints/fingerprints.json")
+        with open(self.path, 'r') as f:
+            self.fingerprints = json.load(f)
 
     def get_cname(self, url: str):
 
