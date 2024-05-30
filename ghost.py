@@ -49,7 +49,9 @@ if args.l:
             print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain: {subdomain}{Fore.RESET}")
             print(f"{Fore.LIGHTGREEN_EX}Service: {service}{Fore.RESET}")
             print(f"{Fore.LIGHTGREEN_EX}Discuss: {discuss}{Fore.RESET}")
-        else:
+        if vuln is None:
+            print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR: {subdomain}{Fore.RESET}")
+        if vuln is False:
             print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain: {subdomain}{Fore.RESET}")
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=int(args.t)) as executor:
@@ -66,5 +68,7 @@ if args.d:
         print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain: {args.d}{Fore.RESET}")
         print(f"{Fore.LIGHTGREEN_EX}Service: {service}{Fore.RESET}")
         print(f"{Fore.LIGHTGREEN_EX}Discuss: {discuss}{Fore.RESET}")
-    else:
+    if vuln is None:
+        print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR: {args.d}{Fore.RESET}")
+    if vuln is False:
         print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain: {args.d}{Fore.RESET}")

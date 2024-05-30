@@ -13,7 +13,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class Takeover:
     def __init__(self):
         self.user_agent = random.choice(Settings.USER_AGENT.value)
-        self.path = "src/fingerprints.json"
+        self.path = "../fingerprints/fingerprints.json"
         self.fingerprints = json.load(open(self.path))
 
     def get_cname(self, url: str):
@@ -74,7 +74,6 @@ class Takeover:
             )
             return response.text, response.status_code
         except requests.RequestException:
-            print(f"{Fore.BLACK}HTTP ERROR: {url}{Fore.RESET}")
             return None, None
 
     def is_vulnerable(self, url: str):
@@ -108,10 +107,12 @@ class Takeover:
                 if cname in fingerprint["cname"]:
                     return fingerprint["vulnerable"], fingerprint["service"], fingerprint["discussion"]
 
-        content, _ = self.get_http_response("https://" + url)
+        content, sc = self.get_http_response("https://" + url)
         if content:
             for fingerprint in self.fingerprints:
                 if fingerprint["fingerprint"] in content:
                     return fingerprint["vulnerable"], fingerprint["service"], fingerprint["discussion"]
+        if content is None and sc is None:
+            return None, None, None
 
         return False, None, None
