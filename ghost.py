@@ -26,9 +26,9 @@ args = parser.parse_args()
 
 print()
 print(22 * "-")
-print(f"{Fore.CYAN}Mode list{Fore.RESET}: {Fore.BLACK}{'true' if args.l else 'false'}{Fore.RESET}")
-print(f"{Fore.CYAN}Mode single{Fore.RESET}: {Fore.BLACK}{'true' if args.d else 'false'}{Fore.RESET}")
-print(f"{Fore.CYAN}Number of threads{Fore.RESET}: {Fore.BLACK}{args.t}{Fore.RESET}")
+print(f"{Fore.CYAN}Mode list{Fore.RESET}: {Fore.WHITE}{'true' if args.l else 'false'}{Fore.RESET}")
+print(f"{Fore.CYAN}Mode single{Fore.RESET}: {Fore.WHITE}{'true' if args.d else 'false'}{Fore.RESET}")
+print(f"{Fore.CYAN}Number of threads{Fore.RESET}: {Fore.WHITE}{args.t}{Fore.RESET}")
 print(22 * "-")
 print()
 
@@ -46,13 +46,13 @@ if args.l:
             hostname = parsed_url.hostname
         vuln, service, discuss = subdomain_takeover.is_vulnerable(url=hostname)
         if vuln:
-            print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain: {subdomain}{Fore.RESET}")
-            print(f"{Fore.LIGHTGREEN_EX}Service: {service}{Fore.RESET}")
-            print(f"{Fore.LIGHTGREEN_EX}Discuss: {discuss}{Fore.RESET}")
+            print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain:{Fore.RESET} {Fore.WHITE}{subdomain}{Fore.RESET}")
+            print(f"{Fore.LIGHTGREEN_EX}Service:{Fore.RESET} {Fore.WHITE}{service}{Fore.RESET}")
+            print(f"{Fore.LIGHTGREEN_EX}Discuss:{Fore.RESET} {Fore.WHITE}{discuss}{Fore.RESET}")
         if vuln is None:
-            print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR: {subdomain}{Fore.RESET}")
+            print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR:{Fore.RESET} {Fore.WHITE}{subdomain}{Fore.RESET}")
         if vuln is False:
-            print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain: {subdomain}{Fore.RESET}")
+            print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain:{Fore.RESET} {Fore.WHITE} {subdomain}{Fore.RESET}")
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=int(args.t)) as executor:
         executor.map(check_subdomain, subdomains)
@@ -65,10 +65,10 @@ if args.d:
         hostname = parsed_url.hostname
     vuln, service, discuss = subdomain_takeover.is_vulnerable(url=hostname)
     if vuln:
-        print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain: {args.d}{Fore.RESET}")
-        print(f"{Fore.LIGHTGREEN_EX}Service: {service}{Fore.RESET}")
-        print(f"{Fore.LIGHTGREEN_EX}Discuss: {discuss}{Fore.RESET}")
+        print(f"{Fore.LIGHTGREEN_EX}Vulnerable subdomain:{Fore.RESET}{Fore.WHITE} {args.d}{Fore.RESET}")
+        print(f"{Fore.LIGHTGREEN_EX}Service:{Fore.RESET} {Fore.WHITE}{service}{Fore.RESET}")
+        print(f"{Fore.LIGHTGREEN_EX}Discuss:{Fore.RESET} {Fore.WHITE}{discuss}{Fore.RESET}")
     if vuln is None:
-        print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR: {args.d}{Fore.RESET}")
+        print(f"{Fore.LIGHTBLACK_EX}HTTP ERROR:{Fore.RESET} {Fore.WHITE}{args.d}{Fore.RESET}")
     if vuln is False:
-        print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain: {args.d}{Fore.RESET}")
+        print(f"{Fore.LIGHTRED_EX}Not vulnerable subdomain:{Fore.RESET} {Fore.WHITE}{args.d}{Fore.RESET}")
